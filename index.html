@@ -1,147 +1,72 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
+<!doctype html>
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AluraFlix</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Player — Vídeo central + 4 miniaturas</title>
+  <style>
+    :root{ --bg1:#000; --bg2:#002b6d; }
+    html,body{ height:100%; margin:0; font-family:Inter,system-ui,Arial,Helvetica,sans-serif; background:linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%); color:#fff; }
+    .wrap{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; }
+    .player-card{ width:100%; max-width:1100px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:18px; box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
+    .main-video iframe{ width:100%; height:60vh; border:none; border-radius:8px; background:#000; }
+    .thumbs{ margin-top:14px; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .thumb{ background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2)); border-radius:8px; overflow:hidden; cursor:pointer; position:relative; }
+    .thumb iframe{ width:100%; height:150px; border:none; display:block; }
+    .thumb .label{ position:absolute; left:8px; bottom:6px; font-size:12px; background:rgba(0,0,0,0.4); padding:4px 6px; border-radius:6px; }
+    @media (max-width:720px){ .thumbs{ grid-template-columns:repeat(2,1fr); } }
+  </style>
 </head>
+<body>
+  <div class="wrap">
+    <div class="player-card">
+      <!-- Vídeo principal -->
+      <div class="main-video" id="mainVideoWrap">
+        <iframe id="mainVideo" src="https://www.youtube.com/embed/cUBLyLmcKT0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
 
-<body> <!--Inicio, corpo do documento-->
-<header>ALURAFLIX</header>
-<section class="chamada">
-<div class="chamada-texto">
-<h1>ATRAVÉS DO ARANHAVERSO SUPERA O PRIMEIRO FILME?</h1>
-<p>#homem-aranha</p>
-</div>
+      <!-- Miniaturas (4) -->
+      <div class="thumbs" role="list">
+        <button class="thumb" data-src="https://www.youtube.com/embed/cUBLyLmcKT0" aria-label="Vídeo principal">
+          <iframe src="https://www.youtube.com/embed/cUBLyLmcKT0" loading="lazy"></iframe>
+          <div class="label">Principal</div>
+        </button>
 
-<div class="video">
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/gt_fAE1Eg2Q?si=EEv-tsY_b1B2OwKE"
-title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-clipboard-write; encrypted-media; gyroscope; picture-in-picture;
-web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
-</section>
+        <button class="thumb" data-src="https://www.youtube.com/embed/xISahuprXHE" aria-label="Vídeo 2">
+          <iframe src="https://www.youtube.com/embed/xISahuprXHE" loading="lazy"></iframe>
+          <div class="label">Vídeo 2</div>
+        </button>
 
-<!--Carrossel de imagens-->
-<section class="recomendacoes">
-<h2>Outras recomendações</h2>
-<div class="outras-recomendacoes">
-<a href="https://www.youtube.com/watch?v=10kObuxwee4">
-<img src="https://img.youtube.com/vi/10kObuxwee4/maxresdefault.jpg" />
+        <button class="thumb" data-src="https://www.youtube.com/embed/3Hfqt_Y2xPA" aria-label="Vídeo 3">
+          <iframe src="https://www.youtube.com/embed/3Hfqt_Y2xPA" loading="lazy"></iframe>
+          <div class="label">Vídeo 3</div>
+        </button>
 
-</a>
-<a href="https://www.youtube.com/watch?v=VEdh5a0kIZE">
-<img src="https://img.youtube.com/vi/VEdh5a0kIZE/maxresdefault.jpg" />
-</a>
-<a href="https://www.youtube.com/watch?v=xSaUcEzopiE">
-<img src="https://img.youtube.com/vi/xSaUcEzopiE/maxresdefault.jpg" />
-</a>
-<a href="https://www.youtube.com/watch?v=N84TDkRoG0o">
-<img src="https://img.youtube.com/vi/N84TDkRoG0o/maxresdefault.jpg" />
-</a>
-<a href="https://www.youtube.com/watch?v=QP2QG43VNXo">
-<img src="https://img.youtube.com/vi/QP2QG43VNXo/maxresdefault.jpg" />
-</a>
-</div>
-</section>
+        <button class="thumb" data-src="https://www.youtube.com/embed/-VtUahrgqJs" aria-label="Vídeo 4">
+          <iframe src="https://www.youtube.com/embed/-VtUahrgqJs" loading="lazy"></iframe>
+          <div class="label">Vídeo 4</div>
+        </button>
 
-<footer>
-<h4>Desenvolvido por Viviane</h4>
-</footer>
+        <button class="thumb" data-src="https://www.youtube.com/embed/0J99YWrveF0" aria-label="Vídeo 5">
+          <iframe src="https://www.youtube.com/embed/0J99YWrveF0" loading="lazy"></iframe>
+          <div class="label">Vídeo 5</div>
+        </button>
+      </div>
+    </div>
+  </div>
 
-</body><!--Fim, corpo do documento-->
+  <script>
+    const mainVideo = document.getElementById('mainVideo');
+    const thumbs = Array.from(document.querySelectorAll('.thumb'));
 
+    thumbs.forEach(t => {
+      t.addEventListener('click', () => {
+        const src = t.getAttribute('data-src');
+        if(src){
+          mainVideo.src = src + "?autoplay=1";
+        }
+      });
+    });
+  </script>
+</body>
 </html>
-
-CSS
-
-/*variaveis*/
-:root {
---preto: #000;
---branco: #fff;
---lilas-claro: #eb76db;
---azul-médio: #2f4dd1;
---amarelo:#cfe80d;
-}
-/*corpo da página*/
-body {
-color: var(--branco);/*cor da fonte*/
-background-color: var(--preto);/*cor de fundo*/
-margin: 0px; /* não terá margem padrão*/
-}
-
-header {
-border: solid 2px;
-border-color: var(--branco);/*cor da borda*/
-padding: 20px;/*espaçamento interno*/
-font-size: 32px;/*tamanho da fonte*/
-color: var(--amarelo);/*cor da fonte*/
-}
-
-section {
-background-color: var(--lilas-claro);/*cor de fundo*/
-padding-bottom: 80px;/*espaçamento inferior*/
-padding-top: 80px;/*espaçamento superior*/
-display: flex;/*alterar a disposição*/
-justify-content: center;/* justificado no centro*/
-}
-
-div {
-margin-right: 20px;/*margem a direita*/
-}
-
-h1 {
-font-size: 1.5rem;
-text-align: center;
-padding-top: 30px;
-}
-
-p {
-font-size: 1rem;
-text-align: center;
-padding-top: 0px;
-}
-
-.chamada-texto {
-background-color: var(--amarelo);
-color: var(--preto);
-margin-right: 20px;
-}
-
-.chamada {
-background: rgb(184, 156, 213);
-padding-bottom: 80px;
-padding-top: 80px;
-display: flex;
-justify-content: center;
-}
-
-img {
-width: 300px;
-height: 200px;
-}
-
-.recomendacoes {
-background-color: var(--lilas-claro);
-
-}
-.outras-recomendacoes {
-background-color: var(--amarelo);
-display: flex;
-overflow-x: auto;
-gap: 20px;
-}
-
-h2 {
-margin-left: 30px;
-}
-
-/*rodapé*/
-footer {
-color: var(--branco);
-text-align: center;
-}
-
